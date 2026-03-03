@@ -6,30 +6,38 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require("bcryptjs");
 const jwtSecret = "mynameisdeepakthatarebuildMagicpinfoodwebsite"
 
-router.post("/createuser", [
-       body("name").isLength({ min: 5 }),
-       body("password").isLength({ min: 6 }),
-       body("email").isEmail()]
-       , async (req, res) => {
-              const errors = validationResult(req);
-              if (!errors.isEmpty()) {
-                     return res.status(400).json({ error: errors.array() });
-              }
-              const salt = await bcrypt.genSalt(10);
-              let secPassword = await bcrypt.hash(req.body.password, salt)
-              try {
-                     await User.create({
-                            name: req.body.name,
-                            password: secPassword,
-                            email: req.body.email,
-                            location: req.body.location
-                     })
-                     res.json({ success: true });
-              } catch (err) {
-                     console.log(err)
-                     res.json({ success: false });
-              }
-       })
+
+router.post("/createuser",
+  [
+    body("name", "Name must be at least 5 characters").isLength({ min: 5 }),
+    body("password", "Password must be at least 6 characters").isLength({ min: 6 }),
+    body("email", "Enter valid email").isEmail()
+  ],
+  async (req, res) => {
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ success: false, errors: errors.array() });
+    }
+
+    try {
+      const salt = await bcrypt.genSalt(10);
+      const secPassword = await bcrypt.hash(req.body.password, salt);
+
+      await User.create({
+        name: req.body.name,
+        email: req.body.email,
+        password: secPassword,
+        location: req.body.location
+      });
+
+      res.json({ success: true });
+
+    } catch (err) {
+      console.log("Signup Error:", err.message);
+      res.status(500).json({ success: false, error: err.message });
+    }
+});
 
 
 router.post("/loginuser", [
