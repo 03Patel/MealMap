@@ -7,7 +7,7 @@ function MyOrder() {
 
   const fetchMyOrder = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/myOrders", {
+      const res = await fetch("https://mealmapbackend.onrender.com/api/myOrders", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: localStorage.getItem('userEmail') })
