@@ -5,11 +5,16 @@ const cors = require('cors');
 const db = require('./db');
 db();
 
-app.use(cors({
-    origin: 'http://localhost:5173',
-    credentials: true
-}));
 
+
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://mealmapfrontend.onrender.com"
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
 app.use(express.json());
 
 app.get('/', (req, res) => {
