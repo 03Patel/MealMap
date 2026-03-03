@@ -19,7 +19,7 @@ function Cart() {
         let userEmail = localStorage.getItem("userEmail");
 
         try {
-            let response = await fetch("http://localhost:5000/api/orderData", {   // ✅ unified endpoint
+            let response = await fetch("https://mealmapbackend.onrender.com/api/orderData", {   // ✅ unified endpoint
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
