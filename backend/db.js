@@ -7,7 +7,7 @@ const MongoURL = 'mongodb+srv://bit21cs51:gvU4lpku2M4T9CcG@magicpin-db.20qkmtg.m
 
 const db = async () => {
   try {
-    await mongoose.connect("mongodb+srv://bit21cs51:gvU4lpku2M4T9CcG@magicpin-db.20qkmtg.mongodb.net/?retryWrites=true&w=majority&appName=MagicPin-db", {
+    await mongoose.connect("mongodb+srv://bit21cs51:@magic-pin-db.mpcsqfl.mongodb.net/?appName=Magic-Pin-db", {
       useNewUrlParser: true,
       useUnifiedTopology: true
     });
